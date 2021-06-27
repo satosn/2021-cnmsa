@@ -1,0 +1,36 @@
+###########################
+pythonインストール
+###########################
+
+| pythonインストールでハマりました。
+| 実行環境はこんな感じ。
+| 実行環境
+
+====== ================
+条件      値
+====== ================
+os      macos
+defaul      2.1.16
+====== ================
+
+| X-codeが入っていなかったり。pythonのパスがおかしかった。
+| とりあえずpyenvでインストールしてみた。
+| そのあとpyenv glabal 3.9.5 で実行した
+| 無理だった。
+
+これが肝だった。::
+
+	pyenve init
+
+
+
+.. seqdiag::
+   :desctable:
+
+   seqdiag {
+      A -> B[label = "test"];
+      B -> C[label = "test"];
+      A [description = "browsers in each client"];
+      B [description = "web server"];
+      C [description = "database server"];
+   }
