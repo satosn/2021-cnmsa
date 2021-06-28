@@ -1,0 +1,33 @@
+###########################
+sphinxインストール
+###########################
+
+===
+作業メモを取るために、初めてながらsphinxを入れてみたので、そのメモを残す。
+
+pip install で sphinx を install::
+
+	$ pip install sphinx
+
+workディレクトリを作成し、quiqstartを実施::
+
+	$ mkdir test_document
+	$ cd test_document
+
+その結果::
+
+	**-bash: pit: command not foundでした。。**
+
+なぜかと思う調べると、どうやらpyhonのバージョンは3が必須のようだった。
+
+バージョンを調べてみた。::
+
+	python --version
+	
+	 python2.17.5
+
+
+python3を入れてみることに。
+
+(メモ転記中)
+

@@ -1,0 +1,35 @@
+###########################
+terasoluna チュートリアル
+###########################
+(メモ転記中)
+
+'' TERASOLUNA Server Framework for Java (5.x) Development Guideline 5.7.0.RELEASE documentation '' を実施。
+
+実施環境は以下の通り。
+
+
+============== ========================
+種別             名前
+============== ========================
+OS              WindowsServer2016(EC2)
+JVM             Java 1.8
+IDE             Spring Tool Suite 3.9.12
+Bulttool        Apache Maven
+============== ========================
+
+
+1.EC2の作成
+
+VPC/subnetを作成し、EC2を作成。
+
+2.環境準備
+
+上記ツールをEC2にインストール。
+なお、EC2へのアクセスは私用PCにて実施。
+
+3.チュートリアル実施
+
+
+
+
+

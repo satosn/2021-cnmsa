@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. テーマ活動 &mdash; msamemo 1.0.0 ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="5. AWS ECS上に構築するSpringアプリケーション(1)第6回" href="../memo/05_cnabase7.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> msamemo
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">setup:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../memo/00_sphinxinst.html">1. sphinxインストール</a></li>
+</ul>
+<p class="caption"><span class="caption-text">memo:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../memo/01_terasoluna.html">1. terasoluna チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/02_cnabase4.html">2. AWS ECS上に構築するSpringアプリケーション(1)第4回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/03_cnabase5.html">3. AWS ECS上に構築するSpringアプリケーション(1)第5回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/04_cnabase6.html">4. AWS ECS上に構築するSpringアプリケーション(1)第6回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/05_cnabase7.html">5. AWS ECS上に構築するSpringアプリケーション(1)第6回</a></li>
+</ul>
+<p class="caption"><span class="caption-text">theme:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. テーマ活動</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.1. テーマの具体化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">1.1.1. サーバレスアーキテクチャの問題点を確認</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">1.1.2. 自身と関わりが深い事例をテーマとして検討</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">1.1.2.1. オンライン処理フロー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">1.1.2.2. バッチ処理フロー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">1.1.2.3. 検証内容案</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">1.1.3. テーマ選定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">msamemo</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>テーマ活動</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/theme/00_dis.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">1. </span>テーマ活動<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2><span class="section-number">1.1. </span>テーマの具体化<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>塾開始当初はアプリケーションの知識がないことから、まずはterasolunaチュートリアル
+(TERASOLUNA Server Framework for Java (5.x) Development Guideline 5.7.0.RELEASE)
+、「AWSで作るクラウドネイティブアプリケーション」を実施してきました。</p>
+<p>塾活動開始から3ヶ月経ち、基礎知識習得と並行で、テーマについて具体化を行おうと思っています。</p>
+<p>現在のテーマとして、AWSマネージドサービスを活用したアプリケーションアーキテクチャの
+検討・検証を通して、オンライン・バッチアプリケーションにおけるさまざまな設計パターンを整理し実装コードとして
+まとめることを挙げています。</p>
+<p>具体化に際し、現状について整理しました。</p>
+<p>AWS公式では以下の通り代表的なサーバレスアーキテクチャの構成がサンプルとして提供されています。</p>
+<p>AWS公式「形で考えるサーバーレス設計」</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/serverless/patterns/serverless-pattern/">https://aws.amazon.com/jp/serverless/patterns/serverless-pattern/</a></p>
+<p>現在のテーマでは、具体化ができていないことから上記と差別化が図れていないため、差別化を図るために、以下パターンで検討を進めました。</p>
+<blockquote>
+<div><p><strong>・サーバレスアーキテクチャの問題点を確認し、テーマを具体化</strong></p>
+<p><strong>・自身と関わりが多い事例をテーマとして活動</strong></p>
+</div></blockquote>
+<p>(他にもこういった観点で検討してもいいのでは、というコメントがあればいただければと思います。)</p>
+<div class="section" id="id3">
+<h3><span class="section-number">1.1.1. </span>サーバレスアーキテクチャの問題点を確認<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>（私の認識ですが）サーバレスアーキテクチャにおける問題点において、
+は以下の通りだと考えています。</p>
+<blockquote>
+<div><p>①サーバーレスアーキテクチャにおいて適切に開発／構築できるエンジニアは少ない。</p>
+<p>②アプリケーションの連携が難しい（複数のサービスが関連して動作するため、一般的なアプリケーションよりもモニタリングなどは複雑になる）サービスの内部構造が理解しにくい。</p>
+</div></blockquote>
+<p>①へのアプローチは、サンプルコードをまとめる、ベストプラクティスや、技量習得の教材や進め方
+についてまとめる、等の対応が考えられます。</p>
+<p>②へのアプローチは、cloudwatchやAWS X-Ray等のサービスを活用し、汎用的な手順整備を行う、実機で構築、
+テストを経て、内部ロジックを明らかにしていく、等の対応が考えられます。</p>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">1.1.2. </span>自身と関わりが深い事例をテーマとして検討<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>業務オンライン、バッチ処理のリファクタリング検討として、
+以下処理フローの代替を検討するといったテーマを検討しています。</p>
+<div class="section" id="id5">
+<h4><span class="section-number">1.1.2.1. </span>オンライン処理フロー<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Citrix Virtual Appsによるシンクライアント機能を用いて、SBCサーバの画面APにアクセス。
+SBCサーバからAPサーバの業務ロジックを実行する。</p>
+<p>業務ロジックは処理に応じてDBサーバを参照・更新し、その結果を画面APに返す。</p>
+<p>・フロントエンド:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>クライアント端末　→　LB　→　Citrix管理サーバ → SBCサーバ
+</pre></div>
+</div>
+<p>SBCサーバ上のアプリケーションをcitrixの機能を用いて、公開。※SBC方式</p>
+<p>LBでcitrix管理サーバへの振り分け、citrix管理サーバがSBCサーバへの負荷分散を実現
+SBC上でアプリケーションは.Netframeworkで作成。</p>
+<p>・バックエンド:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SBCサーバ　→　ELB　→ APサーバ　→　DBサーバ
+</pre></div>
+</div>
+<p>バックエンドLBを通り、APサーバ、アプリケーションサーバの機能で負荷分散を実施している。
+アプリケーションサーバはIBM WebSphere Application Server ,フレームワークとしてFinalunaFrameworkを利用。</p>
+</div>
+<div class="section" id="id6">
+<h4><span class="section-number">1.1.2.2. </span>バッチ処理フロー<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>APサーバ　→ DBサーバ</p>
+<p>JP1 AJSを利用して業務ジョブを実行</p>
+</div>
+<div class="section" id="id7">
+<h4><span class="section-number">1.1.2.3. </span>検証内容案<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>案としては以下が考えられると思っており、それについて検討を行いたいと考えています。</p>
+<blockquote>
+<div><p>・Citrix Virtual Appsをマネージドサービスへ置き換え(AWS Appstream2.0)</p>
+<p>・疎結合化の観点から、セッション管理をRedis/dynamoに置き換え（現状はRDB）</p>
+<p>・コンテナ化(EC2による実装をコンテナベースに置き換え)※Appstreamの場合、内部的にはEC2のため、適用範囲を検討の必要あり</p>
+<p>・バッチ処理をDRSProxyなど利用しながら、Lambdaで実装※対象を選定して、スモールスタートになるか。</p>
+<p>・アプリケーションをSaaS等に置き換える。(ex.S3をDatalakeとして利用。AWS Gleuなどをりよし、DM/DWHへload、BI(QuickSightや3rdparty)等で代替</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">1.1.3. </span>テーマ選定<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<blockquote>
+<div><p><strong>・サーバレスアーキテクチャの問題点を確認</strong></p>
+<p><strong>・自身と関わりが多い事例をテーマとして検討</strong></p>
+</div></blockquote>
+<p>上記二つについて、上述の通り検討していましたが、以下理由から
+関わりの深い事例についてのリファクタリング（Appstreamの利用まとめ）をテーマにしたいと考えています。</p>
+<blockquote>
+<div><p>・サーバレスアーキテクチャの知識がまだ不十分で、問題点を正確に把握することが難しい。</p>
+<p>・自身の理解が深い事例について実施することで、時間もかぎれらている中でも対応が可能な見込み。</p>
+<p>・AWS AppStreamを利用した事例があまりないため、差別化が図れる。※逆に何か理由があり利用されていないものかも。。</p>
+<p>・Workspacesほどの自由度を与えたくないような場合等、別の選択肢として理解しておくことは必要。(メリット/デメリットや制約について)</p>
+<p>・業務に直結する。</p>
+</div></blockquote>
+<p>（余力があれば、全体構成についてのリファクタリング案を検討したい）</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../memo/05_cnabase7.html" class="btn btn-neutral float-left" title="5. AWS ECS上に構築するSpringアプリケーション(1)第6回" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, sato.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
