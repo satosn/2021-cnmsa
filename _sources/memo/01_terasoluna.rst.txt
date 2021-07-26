@@ -1,7 +1,7 @@
 ###########################
 terasoluna チュートリアル
 ###########################
-
+(メモ転記中)
 
 '' TERASOLUNA Server Framework for Java (5.x) Development Guideline 5.7.0.RELEASE documentation '' を実施。
 

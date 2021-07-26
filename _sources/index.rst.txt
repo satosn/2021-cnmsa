@@ -30,7 +30,7 @@ cnmsa_sato_workmemo
    :numbered:
 
    /theme/00_dis
-
+   /theme/01_1stsample_appstream.rst 
 
 Indices and tables
 ==================

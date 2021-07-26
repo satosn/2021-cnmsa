@@ -1,0 +1,693 @@
+###########################
+
+
+AWS Appstream2.0のSample作成
+===========================================
+
+まずはAWSAppstream2.0の利用感を得るために、サンプルアプリケーションの配信をセットアップした。
+AWS App Stream2.0は以下の要素で構成される。
+
+|
+
+.. image:: img/AppStreamimg.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+
+ImageBuilderにて、配信するアプリケーションを設定し、ImageBuilderのSnapShotからImageを作成。
+
+作成したImageを元にFleetを作成する。ユーザーへアプリケーションを配信するのはFleetとなる。
+
+StackにてUserとFleetの紐付けやストレージオプションやUserに許可する操作権限の付与を行う。
+
+以下順序にてセットアップを実施。
+
+|
+
+
+	・ImageBuilderの作成 ※配信するアプリケーションのインストール設定等
+
+	・SampleUserの作成
+	
+	・ImageBuilderからImageを作成
+
+	・ImageからFleetを作成
+
+	・FleetとUserの紐付け、Stackの作成を実施。
+
+|
+|
+
+
+Imagebuilderの起動
+^^^^^^^^^^^^^^^^^^^^^^^^
+マネジメントコンソールにて[サービス]から[AppStream2.0]を選択し、
+表示されたメニューから[Images]を選び[Image Builder]タブを開き[Launch Image Builder]をクリック。
+
+|
+
+.. image:: img/ImageBuilderlaunch.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+イメージタイプの選択画面で、「Windows Server2019」を選択し、「Next」をクリック。
+
+|
+
+.. image:: img/ImageBuilderlaunch_1.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+続いて、作成するイメージの詳細設定を行う。
+
+設定値は以下の通り。
+
+|
+|
+
+============== ============================================
+種別             名前
+============== ============================================
+Name            1st_sample
+Display Name    1st_sample
+Tags            Name 1st_sample
+Instance Type   stream.standard.small(1vCPU/2GiB Mmemory)
+VPC Endpoints   Internet
+IAMRole         None
+============== ============================================
+
+|
+|
+
+.. image:: img/ImageBuilderlaunch_2.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/ImageBuilderlaunch_3.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+続いて、ネットワーク設定等の設定を行う。
+
+今回のサンプルではインターネットアクセスを許可するため、「Default Internet Access」に
+
+チェックを入れる。VPやSubnet,SecurityGroupなどは既存のものを利用。
+
+Active Directory Domain (Optional)は今回では利用しない。
+
+|
+
+.. image:: img/ImageBuilderlaunch_4.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/ImageBuilderlaunch_5.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+最後に設定値確認のページに遷移するため、
+
+設定値を確認し、右下の[Launch]をクリック。
+
+|
+
+.. image:: img/ImageBuilderlaunch_6.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/ImageBuilderlaunch_7.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+作成されたら、ImagBuilder画面にて、作成したImageBuilderが一覧に表示される。
+
+作成したImageのセットアップを行うため、
+
+ImageBuilder画面にて「connect」をクリックする。
+
+|
+
+.. image:: img/MakeApp.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+Administratorでログインするため、Administratorを選択
+少し待つとWindows Server2019のデスクトップ画面が表示される。
+
+|
+
+.. image:: img/MakeApp_1.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+一旦はSample作成のため、teratermとリモードテスクトップを配信してみる。
+デフォルトでインストールされているfirefoxから、teratermをダウンロード、インストール。
+デスクトップのショートカット「ImageAssistant」を起動し、teraterm/リモートデスクトップ
+
+のアプリケーションを追加。
+
+|
+
+.. image:: img/MakeApp_2.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/MakeApp_3.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/MakeApp_4.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+登録後、一度testuserにスイッチログインし、アプリケーションの起動/挙動が問題ないか確認。
+
+
+<アプリケーションをセットアップした際に、OSの日本語化も行なったが、その際にWindows10のシステムロケールをUTF-8にするとTera Termのタスクバーが文字化けしてしまった。
+ただのミス>
+
+
+再度Administratorにスイッチし、「save settings」をクリックし、Nextをクリック。
+
+|
+
+.. image:: img/MakeApp_5.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+最後に「launch」をクリックし、アプリーケーションを起動する。
+
+
+アプリケーションの名称を決定する画面に戻るため、
+イメージに名前をつけ、「Next」クリック。
+
+
+右下の[Disconnect and Create Image]をクリック。
+
+Administratorログインのセッションが切断され、AppStream2.0のマネジメントコンソールへ戻る。
+Image Builderのステータスが[Snapshotting]となっているため、しばらく待機。
+
+|
+
+.. image:: img/MakeApp_6.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/MakeApp_7.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+stop状態になり、イメージ一覧画面でイメージが作成されていることがわかる。
+
+次手順のフリートの作成で、作成したイメージを利用するため、stop状態から起動しておく
+
+|
+
+.. image:: img/MakeApp_8.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+
+|
+
+memo
+	Imagebuilderのセットアップで、再起動の仕方がわからない。
+	仕方なく、マネジメントコンソールのImagebuilder画面からstop/startを実施して再起動。
+
+|
+|
+
+SampleUserの作成
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Stackへのユーザーアクセスを作成するために
+左ペインの「userpool」を選択し、「CreateUse」rをクリック。
+
+Email,First name,Last nameを設定し、「create」をクリック。
+
+memo
+	Userの設定は本手順だけ？ActiveDirectoryとの連携の場合はどうなる？
+
+|
+|
+
+Fleetの作成
+^^^^^^^^^^^^^^^^^^^^^^^^
+続いて、Fleetの作成を行なった。
+
+Fleet画面から「CreateFleet』をクリック。
+
+|
+
+.. image:: img/MakeFleet.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+設定画面にて、以下を入力し、Nextをクリック。
+
+|
+|
+
+============== ============================================
+種別             名前
+============== ============================================
+Name            1st_samplefleet
+Display Name    1st_samplefleet
+Tags            Name 1st_samplefleet
+============== ============================================
+
+|
+|
+
+.. image:: img/MakeFleet_1.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+先ほど作成したイメージが、選択できるため、選択しNextをクリック。
+
+|
+
+.. image:: img/MakeFleet_2.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+詳細設定画面に遷移するため、以下値で作成
+
+|
+|
+
+======================================== ============================================
+種別						名前
+======================================== ============================================
+Instance Type					stream.standard.small(1vCPU/2GiB Mmemory)
+Fleet Type detail				On-Demand
+Maximum session duration in minutes		960(default)
+Disconnect timeout in minutes			15(default)
+Idle disconnect timeout in minutes		17(default)
+Minimum capacity				1(default)
+Maximum capacity				5(default)
+Stream view					Application
+Scaling details (Advanced)			75%>CPU +2 25%<CPU -1 (default)
+IAM role (Advanced)				None(default)
+======================================== ============================================
+
+|
+|
+
+
+memo
+	stream viewのデスクトップはどう見えるか確認したおきたい。
+
+|
+
+.. image:: img/MakeFleet_3.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+続いて、ネットワーク設定等の設定を行う。
+
+今回のサンプルではインターネットアクセスを許可するため、「Default Internet Access」に
+
+チェックを入れる。VPやSubnet,SecurityGroupなどは既存のものを利用。
+今回のサンプルではインターネットアクセスを許可するため、「Default Internet Access」に
+
+チェックを入れる。
+
+Active Directory Domain (Optional)は今回では利用しない。
+
+|
+
+.. image:: img/MakeFleet_4.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+設定値を確認し、右下の[Launch]をクリック。
+
+|
+
+.. image:: img/MakeFleet_5.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/MakeFleet_6.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/MakeFleet_7.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+|
+
+
+Stackの作成
+^^^^^^^^^^^^^^^^^^^^^^^^
+続いて、Stackの作成を行う。
+
+画面左メニューより[Stacks]を選択し[Create Stack]をクリックすると、Stack detailsウインドウが表示される。
+
+|
+
+.. image:: img/MakeStack.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+Stackの名前や使用するFleetなどを登録する。
+
+以下値を設定し、「Next」をクリック。
+
+|
+
+*Stack Dtail(スタックの詳細設定)*
+
+
+======================================== ===========================================================
+種別						名前
+======================================== ===========================================================
+Name					        1st_samplestack
+Display Name					1st_samplestack
+Redirect URL					None(default)
+Feedback URL					None(default)
+Fleet						1st_samplefleet
+Tags						Name 1st_samplestack
+VPC Endpoints (Advanced)			Internet
+Embed AppStream 2.0 (Optional)			None
+======================================== ===========================================================
+
+|
+|
+
+
+.. image:: img/MakeStack_1.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+
+続いて、外部ストレージの設定を行う。
+
+ユーザープロファイルをS3に保存し、次回セッション接続時まで保管する。
+
+基本はデフォルト値とする。
+
+|
+
+*Enable strage(ストレージの設定)*
+
+
+======================================== ===========================================================
+種別						名前
+======================================== ===========================================================
+Enable Home Folders S3				xxxx
+Enable Google Drive				false
+Enable OneDrive					false
+======================================== ===========================================================
+
+|
+|
+
+.. image:: img/MakeStack_2.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+続いて、ユーザーが実行できる操作について設定を行う。
+
+基本はデフォルト値とする。
+|
+*User Settings*
+
+
+======================================== ===========================================================
+種別						名前
+======================================== ===========================================================
+Clipboard					Copy and Paste
+File transfer					Upload and download
+Print to local device				Enabled
+Password sign in for Active Directory		Enabled
+Smart card sign in for Active Directory		Enabled
+Application settings persistence		Enabled
+Settings group					1st_samplestack
+======================================== ===========================================================
+
+|
+|
+
+.. image:: img/MakeStack_3.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+上記設定後、最終確認画面にて設定値を確認し、「Create」をクリック。
+
+以下の通りStackが作成される。
+
+|
+
+.. image:: img/MakeStack_4.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+|
+
+Userのアサイン作成
+^^^^^^^^^^^^^^^^^^^^^^^^
+作成したスタックへ接続できるユーザを設定する。
+
+UserPool画面から「AssignUser」をクリックし、設定する。
+
+|
+
+.. image:: img/AssignUser.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/AssignUser_1.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+|
+
+
+SampleUserにて配信されるアプリケーションを利用
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ユーザーをアサインした際に、設定開いたメールアドレスにURL
+
+が記載されているため、そのURLへアクセス。
+
+|
+
+.. image:: img/1sttestConnect_1.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+以前設定したteratermとリモートデスクトップのアプリケーションアイコン
+
+が表示される。
+
+|
+
+.. image:: img/1sttestConnect_2.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+クリックすると、アプリケーションの起動待ち画面になる。
+
+※「On-Demand」での作成としたため、フリートの起動を行なっている。
+
+「AlwaysOn」とした場合は即座に利用できると想定
+
+
+それぞれのアプリケーションが利用できることが確認できる。
+
+|
+
+.. image:: img/1sttestConnect_3.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+それぞれのアプリケーションが利用できることが確認できる。
+
+|
+
+.. image:: img/1sttestConnect_4.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+.. image:: img/1sttestConnect_5.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+
+今後は詳細を検証していく。
+
+	・Internet経由ではなく、VPCエンドポイント経由での接続　※実施できれば。
+
+　	・ドメインユーザでの利用　Active Directoryとの連携
+
+	・配信アプリケーションにおいて、バックエンド処理をVPCエンドポイント経由で、自身のVPC内のリソースにアクセスさせる
+
+	・各種設定値の検証　※　ストレージ、起動設定、チューニング可能要素の設定
+
+|
+
+memo
+
+	fleetが起動していない際のメッセージの自由度があるか。
+
+|
+
+.. image:: img/1sttestConnect_6.png
+   :scale: 100%
+   :height: 300px
+   :width: 600px
+   :align: center
+
+|
+
+

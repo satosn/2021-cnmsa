@@ -3,7 +3,7 @@ sphinxインストール
 ###########################
 
 ===
-作業メモを取る雨に初めてながらsphinxを入れてみたので、そのメモを残す。
+作業メモを取るために、初めてながらsphinxを入れてみたので、そのメモを残す。
 
 pip install で sphinx を install::
 
@@ -14,15 +14,56 @@ workディレクトリを作成し、quiqstartを実施::
 	$ mkdir test_document
 	$ cd test_document
 
-その結果、*-bash: pit: command not found*でした。。
+その結果::
+
+	**-bash: pit: command not foundでした。。**
 
 なぜかと思う調べると、どうやらpyhonのバージョンは3が必須のようだった。
 
-バージョンを調べてみると。。
+バージョンを調べてみた。::
 
-"python --version" python2.17.5""
+	python --version
+	
+	 python2.17.5
+
 
 python3を入れてみることに。
 
+(メモ転記中)
 
 
+sphinxのテーマ変更も実施。とりあえず、「agogo」なるものを入れてみた。
+
+結構良かったけど、もう少しおしゃれにしたかったため、
+bootswatchを利用することにした。
+
+まずは、テーマをpipでインストール::
+
+	pip install sphinx-bootstrap-theme
+
+
+その後に、conf.pyに以下を記載。::
+
+
+	html_theme = 'bootstrap'
+	html_theme_options = {
+    		'bootswatch_theme': "superhero",
+	}
+	html_sidebars = {
+    		'**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'],
+
+	}
+
+
+完成したテーマはこれ。
+
+
+
+.. image:: img/sample_spinxcap.png
+   :scale: 100%
+   :height: 400px
+   :width: 600px
+   :align: left
+
+
+	

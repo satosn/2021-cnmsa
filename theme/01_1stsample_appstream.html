@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. AWS Appstream2.0のSample作成 &#8212; msamemo 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="1. テーマ活動" href="00_dis.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          msamemo</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">setup:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../memo/00_sphinxinst.html">1. sphinxインストール</a></li>
+</ul>
+<p class="caption"><span class="caption-text">memo:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../memo/01_terasoluna.html">1. terasoluna チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/02_cnabase4.html">2. AWS ECS上に構築するSpringアプリケーション(1)第4回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/03_cnabase5.html">3. AWS ECS上に構築するSpringアプリケーション(1)第5回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/04_cnabase6.html">4. AWS ECS上に構築するSpringアプリケーション(1)第6回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/05_cnabase7.html">5. AWS ECS上に構築するSpringアプリケーション(1)第7回</a></li>
+</ul>
+<p class="caption"><span class="caption-text">theme:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="00_dis.html">1. テーマ活動</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. AWS Appstream2.0のSample作成</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">2. AWS Appstream2.0のSample作成</a><ul>
+<li><a class="reference internal" href="#imagebuilder">2.1. Imagebuilderの起動</a></li>
+<li><a class="reference internal" href="#sampleuser">2.2. SampleUserの作成</a></li>
+<li><a class="reference internal" href="#fleet">2.3. Fleetの作成</a></li>
+<li><a class="reference internal" href="#stack">2.4. Stackの作成</a></li>
+<li><a class="reference internal" href="#user">2.5. Userのアサイン作成</a></li>
+<li><a class="reference internal" href="#id1">2.6. SampleUserにて配信されるアプリケーションを利用</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="00_dis.html" title="Previous Chapter: 1. テーマ活動"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 1. テーマ活動</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/theme/01_1stsample_appstream.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">setup:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../memo/00_sphinxinst.html">1. sphinxインストール</a></li>
+</ul>
+<p class="caption"><span class="caption-text">memo:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../memo/01_terasoluna.html">1. terasoluna チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/02_cnabase4.html">2. AWS ECS上に構築するSpringアプリケーション(1)第4回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/03_cnabase5.html">3. AWS ECS上に構築するSpringアプリケーション(1)第5回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/04_cnabase6.html">4. AWS ECS上に構築するSpringアプリケーション(1)第6回</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memo/05_cnabase7.html">5. AWS ECS上に構築するSpringアプリケーション(1)第7回</a></li>
+</ul>
+<p class="caption"><span class="caption-text">theme:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="00_dis.html">1. テーマ活動</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. AWS Appstream2.0のSample作成</a></li>
+</ul>
+</ul>
+</li>
+  <li>
+    <a href="00_dis.html" title="Previous Chapter: 1. テーマ活動"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 1. テーマ活動</span>
+    </a>
+  </li>
+<div id="sourcelink">
+  <a href="../_sources/theme/01_1stsample_appstream.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+<form action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <hr class="docutils" />
+<div class="section" id="aws-appstream2-0sample">
+<h1><span class="section-number">2. </span>AWS Appstream2.0のSample作成<a class="headerlink" href="#aws-appstream2-0sample" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>まずはAWSAppstream2.0の利用感を得るために、サンプルアプリケーションの配信をセットアップした。
+AWS App Stream2.0は以下の要素で構成される。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/AppStreamimg.png"><img alt="../_images/AppStreamimg.png" class="align-center" src="../_images/AppStreamimg.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>ImageBuilderにて、配信するアプリケーションを設定し、ImageBuilderのSnapShotからImageを作成。</p>
+<p>作成したImageを元にFleetを作成する。ユーザーへアプリケーションを配信するのはFleetとなる。</p>
+<p>StackにてUserとFleetの紐付けやストレージオプションやUserに許可する操作権限の付与を行う。</p>
+<p>以下順序にてセットアップを実施。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><p>・ImageBuilderの作成 ※配信するアプリケーションのインストール設定等</p>
+<p>・SampleUserの作成</p>
+<p>・ImageBuilderからImageを作成</p>
+<p>・ImageからFleetを作成</p>
+<p>・FleetとUserの紐付け、Stackの作成を実施。</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<div class="section" id="imagebuilder">
+<h2><span class="section-number">2.1. </span>Imagebuilderの起動<a class="headerlink" href="#imagebuilder" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>マネジメントコンソールにて[サービス]から[AppStream2.0]を選択し、
+表示されたメニューから[Images]を選び[Image Builder]タブを開き[Launch Image Builder]をクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch.png"><img alt="../_images/ImageBuilderlaunch.png" class="align-center" src="../_images/ImageBuilderlaunch.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>イメージタイプの選択画面で、「Windows Server2019」を選択し、「Next」をクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_1.png"><img alt="../_images/ImageBuilderlaunch_1.png" class="align-center" src="../_images/ImageBuilderlaunch_1.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>続いて、作成するイメージの詳細設定を行う。</p>
+<p>設定値は以下の通り。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>名前</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p>1st_sample</p></td>
+</tr>
+<tr class="row-odd"><td><p>Display Name</p></td>
+<td><p>1st_sample</p></td>
+</tr>
+<tr class="row-even"><td><p>Tags</p></td>
+<td><p>Name 1st_sample</p></td>
+</tr>
+<tr class="row-odd"><td><p>Instance Type</p></td>
+<td><p>stream.standard.small(1vCPU/2GiB Mmemory)</p></td>
+</tr>
+<tr class="row-even"><td><p>VPC Endpoints</p></td>
+<td><p>Internet</p></td>
+</tr>
+<tr class="row-odd"><td><p>IAMRole</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_2.png"><img alt="../_images/ImageBuilderlaunch_2.png" class="align-center" src="../_images/ImageBuilderlaunch_2.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_3.png"><img alt="../_images/ImageBuilderlaunch_3.png" class="align-center" src="../_images/ImageBuilderlaunch_3.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>続いて、ネットワーク設定等の設定を行う。</p>
+<p>今回のサンプルではインターネットアクセスを許可するため、「Default Internet Access」に</p>
+<p>チェックを入れる。VPやSubnet,SecurityGroupなどは既存のものを利用。</p>
+<p>Active Directory Domain (Optional)は今回では利用しない。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_4.png"><img alt="../_images/ImageBuilderlaunch_4.png" class="align-center" src="../_images/ImageBuilderlaunch_4.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_5.png"><img alt="../_images/ImageBuilderlaunch_5.png" class="align-center" src="../_images/ImageBuilderlaunch_5.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>最後に設定値確認のページに遷移するため、</p>
+<p>設定値を確認し、右下の[Launch]をクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_6.png"><img alt="../_images/ImageBuilderlaunch_6.png" class="align-center" src="../_images/ImageBuilderlaunch_6.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ImageBuilderlaunch_7.png"><img alt="../_images/ImageBuilderlaunch_7.png" class="align-center" src="../_images/ImageBuilderlaunch_7.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>作成されたら、ImagBuilder画面にて、作成したImageBuilderが一覧に表示される。</p>
+<p>作成したImageのセットアップを行うため、</p>
+<p>ImageBuilder画面にて「connect」をクリックする。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp.png"><img alt="../_images/MakeApp.png" class="align-center" src="../_images/MakeApp.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Administratorでログインするため、Administratorを選択
+少し待つとWindows Server2019のデスクトップ画面が表示される。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_1.png"><img alt="../_images/MakeApp_1.png" class="align-center" src="../_images/MakeApp_1.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>一旦はSample作成のため、teratermとリモードテスクトップを配信してみる。
+デフォルトでインストールされているfirefoxから、teratermをダウンロード、インストール。
+デスクトップのショートカット「ImageAssistant」を起動し、teraterm/リモートデスクトップ</p>
+<p>のアプリケーションを追加。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_2.png"><img alt="../_images/MakeApp_2.png" class="align-center" src="../_images/MakeApp_2.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_3.png"><img alt="../_images/MakeApp_3.png" class="align-center" src="../_images/MakeApp_3.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_4.png"><img alt="../_images/MakeApp_4.png" class="align-center" src="../_images/MakeApp_4.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>登録後、一度testuserにスイッチログインし、アプリケーションの起動/挙動が問題ないか確認。</p>
+<p>&lt;アプリケーションをセットアップした際に、OSの日本語化も行なったが、その際にWindows10のシステムロケールをUTF-8にするとTera Termのタスクバーが文字化けしてしまった。
+ただのミス&gt;</p>
+<p>再度Administratorにスイッチし、「save settings」をクリックし、Nextをクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_5.png"><img alt="../_images/MakeApp_5.png" class="align-center" src="../_images/MakeApp_5.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>最後に「launch」をクリックし、アプリーケーションを起動する。</p>
+<p>アプリケーションの名称を決定する画面に戻るため、
+イメージに名前をつけ、「Next」クリック。</p>
+<p>右下の[Disconnect and Create Image]をクリック。</p>
+<p>Administratorログインのセッションが切断され、AppStream2.0のマネジメントコンソールへ戻る。
+Image Builderのステータスが[Snapshotting]となっているため、しばらく待機。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_6.png"><img alt="../_images/MakeApp_6.png" class="align-center" src="../_images/MakeApp_6.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_7.png"><img alt="../_images/MakeApp_7.png" class="align-center" src="../_images/MakeApp_7.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>stop状態になり、イメージ一覧画面でイメージが作成されていることがわかる。</p>
+<p>次手順のフリートの作成で、作成したイメージを利用するため、stop状態から起動しておく</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeApp_8.png"><img alt="../_images/MakeApp_8.png" class="align-center" src="../_images/MakeApp_8.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>memo</dt><dd><p>Imagebuilderのセットアップで、再起動の仕方がわからない。
+仕方なく、マネジメントコンソールのImagebuilder画面からstop/startを実施して再起動。</p>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="sampleuser">
+<h2><span class="section-number">2.2. </span>SampleUserの作成<a class="headerlink" href="#sampleuser" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Stackへのユーザーアクセスを作成するために
+左ペインの「userpool」を選択し、「CreateUse」rをクリック。</p>
+<p>Email,First name,Last nameを設定し、「create」をクリック。</p>
+<dl class="simple">
+<dt>memo</dt><dd><p>Userの設定は本手順だけ？ActiveDirectoryとの連携の場合はどうなる？</p>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="fleet">
+<h2><span class="section-number">2.3. </span>Fleetの作成<a class="headerlink" href="#fleet" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>続いて、Fleetの作成を行なった。</p>
+<p>Fleet画面から「CreateFleet』をクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet.png"><img alt="../_images/MakeFleet.png" class="align-center" src="../_images/MakeFleet.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>設定画面にて、以下を入力し、Nextをクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>名前</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p>1st_samplefleet</p></td>
+</tr>
+<tr class="row-odd"><td><p>Display Name</p></td>
+<td><p>1st_samplefleet</p></td>
+</tr>
+<tr class="row-even"><td><p>Tags</p></td>
+<td><p>Name 1st_samplefleet</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_1.png"><img alt="../_images/MakeFleet_1.png" class="align-center" src="../_images/MakeFleet_1.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>先ほど作成したイメージが、選択できるため、選択しNextをクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_2.png"><img alt="../_images/MakeFleet_2.png" class="align-center" src="../_images/MakeFleet_2.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>詳細設定画面に遷移するため、以下値で作成</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>名前</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Instance Type</p></td>
+<td><p>stream.standard.small(1vCPU/2GiB Mmemory)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fleet Type detail</p></td>
+<td><p>On-Demand</p></td>
+</tr>
+<tr class="row-even"><td><p>Maximum session duration in minutes</p></td>
+<td><p>960(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Disconnect timeout in minutes</p></td>
+<td><p>15(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>Idle disconnect timeout in minutes</p></td>
+<td><p>17(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Minimum capacity</p></td>
+<td><p>1(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>Maximum capacity</p></td>
+<td><p>5(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Stream view</p></td>
+<td><p>Application</p></td>
+</tr>
+<tr class="row-even"><td><p>Scaling details (Advanced)</p></td>
+<td><p>75%&gt;CPU +2 25%&lt;CPU -1 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>IAM role (Advanced)</p></td>
+<td><p>None(default)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>memo</dt><dd><p>stream viewのデスクトップはどう見えるか確認したおきたい。</p>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_3.png"><img alt="../_images/MakeFleet_3.png" class="align-center" src="../_images/MakeFleet_3.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>続いて、ネットワーク設定等の設定を行う。</p>
+<p>今回のサンプルではインターネットアクセスを許可するため、「Default Internet Access」に</p>
+<p>チェックを入れる。VPやSubnet,SecurityGroupなどは既存のものを利用。
+今回のサンプルではインターネットアクセスを許可するため、「Default Internet Access」に</p>
+<p>チェックを入れる。</p>
+<p>Active Directory Domain (Optional)は今回では利用しない。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_4.png"><img alt="../_images/MakeFleet_4.png" class="align-center" src="../_images/MakeFleet_4.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>設定値を確認し、右下の[Launch]をクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_5.png"><img alt="../_images/MakeFleet_5.png" class="align-center" src="../_images/MakeFleet_5.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_6.png"><img alt="../_images/MakeFleet_6.png" class="align-center" src="../_images/MakeFleet_6.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeFleet_7.png"><img alt="../_images/MakeFleet_7.png" class="align-center" src="../_images/MakeFleet_7.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="stack">
+<h2><span class="section-number">2.4. </span>Stackの作成<a class="headerlink" href="#stack" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>続いて、Stackの作成を行う。</p>
+<p>画面左メニューより[Stacks]を選択し[Create Stack]をクリックすると、Stack detailsウインドウが表示される。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeStack.png"><img alt="../_images/MakeStack.png" class="align-center" src="../_images/MakeStack.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Stackの名前や使用するFleetなどを登録する。</p>
+<p>以下値を設定し、「Next」をクリック。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><em>Stack Dtail(スタックの詳細設定)</em></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>名前</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p>1st_samplestack</p></td>
+</tr>
+<tr class="row-odd"><td><p>Display Name</p></td>
+<td><p>1st_samplestack</p></td>
+</tr>
+<tr class="row-even"><td><p>Redirect URL</p></td>
+<td><p>None(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Feedback URL</p></td>
+<td><p>None(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>Fleet</p></td>
+<td><p>1st_samplefleet</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tags</p></td>
+<td><p>Name 1st_samplestack</p></td>
+</tr>
+<tr class="row-even"><td><p>VPC Endpoints (Advanced)</p></td>
+<td><p>Internet</p></td>
+</tr>
+<tr class="row-odd"><td><p>Embed AppStream 2.0 (Optional)</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeStack_1.png"><img alt="../_images/MakeStack_1.png" class="align-center" src="../_images/MakeStack_1.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>続いて、外部ストレージの設定を行う。</p>
+<p>ユーザープロファイルをS3に保存し、次回セッション接続時まで保管する。</p>
+<p>基本はデフォルト値とする。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><em>Enable strage(ストレージの設定)</em></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>名前</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Enable Home Folders S3</p></td>
+<td><p>xxxx</p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable Google Drive</p></td>
+<td><p>false</p></td>
+</tr>
+<tr class="row-even"><td><p>Enable OneDrive</p></td>
+<td><p>false</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeStack_2.png"><img alt="../_images/MakeStack_2.png" class="align-center" src="../_images/MakeStack_2.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>続いて、ユーザーが実行できる操作について設定を行う。</p>
+<p>基本はデフォルト値とする。
+|
+<em>User Settings</em></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>名前</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Clipboard</p></td>
+<td><p>Copy and Paste</p></td>
+</tr>
+<tr class="row-odd"><td><p>File transfer</p></td>
+<td><p>Upload and download</p></td>
+</tr>
+<tr class="row-even"><td><p>Print to local device</p></td>
+<td><p>Enabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Password sign in for Active Directory</p></td>
+<td><p>Enabled</p></td>
+</tr>
+<tr class="row-even"><td><p>Smart card sign in for Active Directory</p></td>
+<td><p>Enabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Application settings persistence</p></td>
+<td><p>Enabled</p></td>
+</tr>
+<tr class="row-even"><td><p>Settings group</p></td>
+<td><p>1st_samplestack</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeStack_3.png"><img alt="../_images/MakeStack_3.png" class="align-center" src="../_images/MakeStack_3.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>上記設定後、最終確認画面にて設定値を確認し、「Create」をクリック。</p>
+<p>以下の通りStackが作成される。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/MakeStack_4.png"><img alt="../_images/MakeStack_4.png" class="align-center" src="../_images/MakeStack_4.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="user">
+<h2><span class="section-number">2.5. </span>Userのアサイン作成<a class="headerlink" href="#user" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>作成したスタックへ接続できるユーザを設定する。</p>
+<p>UserPool画面から「AssignUser」をクリックし、設定する。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/AssignUser.png"><img alt="../_images/AssignUser.png" class="align-center" src="../_images/AssignUser.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/AssignUser_1.png"><img alt="../_images/AssignUser_1.png" class="align-center" src="../_images/AssignUser_1.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">2.6. </span>SampleUserにて配信されるアプリケーションを利用<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ユーザーをアサインした際に、設定開いたメールアドレスにURL</p>
+<p>が記載されているため、そのURLへアクセス。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/1sttestConnect_1.png"><img alt="../_images/1sttestConnect_1.png" class="align-center" src="../_images/1sttestConnect_1.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>以前設定したteratermとリモートデスクトップのアプリケーションアイコン</p>
+<p>が表示される。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/1sttestConnect_2.png"><img alt="../_images/1sttestConnect_2.png" class="align-center" src="../_images/1sttestConnect_2.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>クリックすると、アプリケーションの起動待ち画面になる。</p>
+<p>※「On-Demand」での作成としたため、フリートの起動を行なっている。</p>
+<p>「AlwaysOn」とした場合は即座に利用できると想定</p>
+<p>それぞれのアプリケーションが利用できることが確認できる。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/1sttestConnect_3.png"><img alt="../_images/1sttestConnect_3.png" class="align-center" src="../_images/1sttestConnect_3.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>それぞれのアプリケーションが利用できることが確認できる。</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/1sttestConnect_4.png"><img alt="../_images/1sttestConnect_4.png" class="align-center" src="../_images/1sttestConnect_4.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/1sttestConnect_5.png"><img alt="../_images/1sttestConnect_5.png" class="align-center" src="../_images/1sttestConnect_5.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>今後は詳細を検証していく。</p>
+<blockquote>
+<div><p>・Internet経由ではなく、VPCエンドポイント経由での接続　※実施できれば。</p>
+</div></blockquote>
+<p>　       ・ドメインユーザでの利用　Active Directoryとの連携</p>
+<blockquote>
+<div><p>・配信アプリケーションにおいて、バックエンド処理をVPCエンドポイント経由で、自身のVPC内のリソースにアクセスさせる</p>
+<p>・各種設定値の検証　※　ストレージ、起動設定、チューニング可能要素の設定</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>memo</p>
+<blockquote>
+<div><p>fleetが起動していない際のメッセージの自由度があるか。</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/1sttestConnect_6.png"><img alt="../_images/1sttestConnect_6.png" class="align-center" src="../_images/1sttestConnect_6.png" style="width: 600.0px; height: 300.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, sato.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
